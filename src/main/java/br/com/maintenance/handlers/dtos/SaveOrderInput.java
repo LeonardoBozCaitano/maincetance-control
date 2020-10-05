@@ -17,18 +17,30 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class SaveOrderInput {
 
+    /**
+     * Client's person Id.
+     */
     @NotEmpty
     @NotNull
     private String clientId;
 
+    /**
+     * Product Id
+     */
     @NotEmpty
     @NotNull
     private String productId;
 
+    /**
+     * Employee Id.
+     */
     @NotEmpty
     @NotNull
     private String employeeId;
 
+    /**
+     * Product's problem description
+     */
     @NotEmpty
     @NotNull
     private String description;

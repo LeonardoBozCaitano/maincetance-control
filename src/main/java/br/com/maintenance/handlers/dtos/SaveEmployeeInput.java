@@ -12,6 +12,9 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class SaveEmployeeInput {
 
+    /**
+     * Person Id.
+     */
     @NotNull
     @NotEmpty
     private String personId;

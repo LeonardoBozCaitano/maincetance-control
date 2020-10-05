@@ -15,18 +15,30 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class SavePersonInput {
 
+    /**
+     * Person's name
+     */
     @NotNull
     @NotEmpty
     private String name;
 
+    /**
+     * Person's address
+     */
     @NotNull
     @NotEmpty
     private String adress;
 
+    /**
+     * Person's phone
+     */
     @NotNull
     @NotEmpty
     private String phone;
 
+    /**
+     * Person's email
+     */
     @NotNull
     @NotEmpty
     @Email

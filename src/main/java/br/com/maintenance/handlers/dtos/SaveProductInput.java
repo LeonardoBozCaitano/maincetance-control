@@ -14,14 +14,23 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class SaveProductInput {
 
+    /**
+     * Product's name
+     */
     @NotNull
     @NotEmpty
     private String name;
 
+    /**
+     * Product's type
+     */
     @NotEmpty
     @NotNull
     private String type;
 
+    /**
+     * Product's brand
+     */
     @NotEmpty
     @NotNull
     private String brand;
