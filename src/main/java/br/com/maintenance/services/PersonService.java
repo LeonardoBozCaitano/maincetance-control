@@ -38,7 +38,7 @@ public class PersonService {
      * @param input Person atributes object
      * @return Saved person.
      */
-    public PersonEntity save(SavePersonInput input) {
+    public PersonEntity validateAndSave(SavePersonInput input) {
         if (personRepository.getPersonByName(input.getName()).isPresent()) throw Exceptions.personNameAlreadyInUse();
         if (personRepository.getPersonByEmail(input.getEmail()).isPresent()) throw Exceptions.personEmailAlreadyInUse();
         if (personRepository.getPersonByPhone(input.getPhone()).isPresent()) throw Exceptions.personPhoneAlreadyInUse();

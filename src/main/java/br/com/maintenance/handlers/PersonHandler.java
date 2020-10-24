@@ -3,7 +3,6 @@ package br.com.maintenance.handlers;
 import br.com.maintenance.handlers.dtos.SavePersonInput;
 import br.com.maintenance.persistence.entities.PersonEntity;
 import br.com.maintenance.services.PersonService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +25,7 @@ public class PersonHandler {
     @RequestMapping(method = RequestMethod.POST)
     public PersonEntity savePerson(@RequestBody SavePersonInput input) {
         try {
-            return personService.save(input);
+            return personService.validateAndSave(input);
         } catch (Exception ex) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage());
         }

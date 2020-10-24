@@ -1,7 +1,7 @@
 package br.com.maintenance.persistence.entities;
 
+import br.com.maintenance.core.exceptions.Exceptions;
 import br.com.maintenance.persistence.enums.OrderStatus;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,12 +12,11 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.UUID;
 
 @Entity
 @Getter
 @Setter
-@Table(name = "maintecenceOrder")
+@Table(name = "maintenenceOrder")
 @NoArgsConstructor
 public class OrderEntity implements Serializable {
 
@@ -65,4 +64,25 @@ public class OrderEntity implements Serializable {
 
     private LocalDate endDate;
 
+    /**
+     * Set the status IN_PROGRESS and the datetime when it happens.
+     */
+    public void setStatusInProgress() {
+        if (this.getStartDate() != null) {
+            throw Exceptions.orderAlreadyStarted();
+        }
+        this.setStartDate(LocalDate.now());
+        this.setStatus(OrderStatus.IN_PROGRESS);
+    }
+
+    /**
+     * Set the status Done and the datetime when it happens.
+     */
+    public void setStatusDone() {
+        if (this.getEndDate() != null) {
+            throw Exceptions.orderAlreadyDone();
+        }
+        this.setEndDate(LocalDate.now());
+        this.setStatus(OrderStatus.DONE);
+    }
 }

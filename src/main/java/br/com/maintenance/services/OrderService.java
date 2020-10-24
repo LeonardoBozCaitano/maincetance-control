@@ -4,11 +4,9 @@ import br.com.maintenance.core.exceptions.Exceptions;
 import br.com.maintenance.handlers.dtos.SaveOrderInput;
 import br.com.maintenance.handlers.mappers.OrderMapper;
 import br.com.maintenance.persistence.entities.*;
-import br.com.maintenance.persistence.enums.OrderStatus;
 import br.com.maintenance.persistence.repositories.order.OrderRepository;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -70,19 +68,14 @@ public class OrderService {
     }
 
     /**
-     * This method, save when the employee started to work at the Order.
+     * This method, saves when the employee started to work at the Order.
      *
      * @param id order Id.
      * @return The order with new attributes.
      */
     public OrderEntity startWorkAtOrder(String id) {
         OrderEntity orderEntity = getOneOrFail(id);
-        if (orderEntity.getStartDate() != null) {
-            throw Exceptions.orderAlreadyStarted();
-        }
-        orderEntity.setStartDate(LocalDate.now());
-        orderEntity.setStatus(OrderStatus.IN_PROGRESS);
-
+        orderEntity.setStatusInProgress();
         return orderRepository.save(orderEntity);
     }
 
@@ -94,12 +87,7 @@ public class OrderService {
      */
     public OrderEntity stopWorkAtOrder(String id) {
         OrderEntity orderEntity = getOneOrFail(id);
-        if (orderEntity.getEndDate() != null) {
-            throw Exceptions.orderAlreadyDone();
-        }
-        orderEntity.setEndDate(LocalDate.now());
-        orderEntity.setStatus(OrderStatus.DONE);
-
+        orderEntity.setStatusDone();
         return orderRepository.save(orderEntity);
     }
 
@@ -111,6 +99,6 @@ public class OrderService {
      */
     public List<OrderEntity> getAllEmployeeOrders(String id) {
         EmployeeEntity employee = employeeService.getOneOrFail(id);
-        return orderRepository.getAllEmployeeOrders(id);
+        return orderRepository.getAllEmployeeOrders(employee.getId());
     }
 }

@@ -2,7 +2,6 @@ package br.com.maintenance.services;
 
 import br.com.maintenance.handlers.dtos.SavePersonInput;
 import br.com.maintenance.handlers.mappers.PersonMapper;
-import br.com.maintenance.persistence.entities.EmployeeEntity;
 import br.com.maintenance.persistence.entities.PersonEntity;
 import br.com.maintenance.persistence.repositories.person.PersonRepository;
 import org.junit.Assert;
@@ -65,7 +64,7 @@ public class PersonServiceTest {
         Mockito.when(personMapper.toEntity(input)).thenReturn(personEntity);
         Mockito.when(personRepository.save(personEntity)).thenReturn(personEntity);
 
-        PersonEntity output = personService.save(input);
+        PersonEntity output = personService.validateAndSave(input);
 
         assertEquals(name, output.getName());
         assertEquals(adress, output.getAdress());
@@ -85,7 +84,7 @@ public class PersonServiceTest {
         Mockito.when(personRepository.getPersonByName(input.getName())).thenReturn(Optional.of(personEntity));
 
         try {
-            PersonEntity output = personService.save(input);
+            PersonEntity output = personService.validateAndSave(input);
             Assert.fail("Exception not thrown");
         } catch (Exception e) {
             assertEquals(e.getMessage(), "Person's name already in use");
@@ -105,7 +104,7 @@ public class PersonServiceTest {
         Mockito.when(personRepository.getPersonByEmail(input.getEmail())).thenReturn(Optional.of(personEntity));
 
         try {
-            PersonEntity output = personService.save(input);
+            PersonEntity output = personService.validateAndSave(input);
             Assert.fail("Exception not thrown");
         } catch (Exception e) {
             assertEquals(e.getMessage(), "Person's email already in use");
@@ -126,7 +125,7 @@ public class PersonServiceTest {
         Mockito.when(personRepository.getPersonByPhone(input.getPhone())).thenReturn(Optional.of(personEntity));
 
         try {
-            PersonEntity output = personService.save(input);
+            PersonEntity output = personService.validateAndSave(input);
             Assert.fail("Exception not thrown");
         } catch (Exception e) {
             assertEquals(e.getMessage(), "Person's phone already in use");
