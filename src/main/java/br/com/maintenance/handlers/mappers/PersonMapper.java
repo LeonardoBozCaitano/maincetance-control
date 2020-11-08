@@ -7,12 +7,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class PersonMapper {
 
-    /**
-     * create a person entity with the input data.
-     *
-     * @param dto input data
-     * @return Person entity.
-     */
     public PersonEntity toEntity(SavePersonInput dto) {
         return new PersonEntity(dto.getName(), dto.getAdress(), dto.getPhone(), dto.getEmail());
     }

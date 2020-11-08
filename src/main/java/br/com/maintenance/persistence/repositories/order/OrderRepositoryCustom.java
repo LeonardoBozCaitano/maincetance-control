@@ -6,12 +6,6 @@ import java.util.List;
 
 public interface OrderRepositoryCustom {
 
-    /**
-     * Get all employee active orders.
-     *
-     * @param employeeId employee Id.
-     * @return List of active orders.
-     */
     List<OrderEntity> getAllEmployeeOrders(String employeeId);
 
 }

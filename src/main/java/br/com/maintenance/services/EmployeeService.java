@@ -24,20 +24,10 @@ public class EmployeeService {
         this.employeeMapper = employeeMapper;
     }
 
-    /**
-     * Return all employees.
-     *
-     * @return Employee list.
-     */
     public List<EmployeeEntity> getAll() {
         return employeeRepository.findAll();
     }
 
-    /**
-     * Return the employee by id, and throws exception if doesn't find it.
-     *
-     * @return Employee Entity
-     */
     public EmployeeEntity getOneOrFail(String id) {
         Optional<EmployeeEntity> employee = employeeRepository.findById(id);
         if (employee.isPresent()) {
@@ -47,12 +37,6 @@ public class EmployeeService {
         }
     }
 
-    /**
-     * Save a employee, validating if the person exists.
-     *
-     * @param dto input
-     * @return The employee saved
-     */
     public EmployeeEntity save(SaveEmployeeInput dto) {
         PersonEntity personEntity = personService.getOneOrFail(dto.getPersonId());
         return employeeRepository.save(employeeMapper.toEntity(personEntity));

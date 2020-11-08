@@ -21,20 +21,10 @@ public class ProductService {
         this.productMapper = productMapper;
     }
 
-    /**
-     * Return every saved product.
-     *
-     * @return product list
-     */
     public List<ProductEntity> getAll() {
         return productRepository.findAll();
     }
 
-    /**
-     * Return the product by id, and throws exception if doesn't find.
-     *
-     * @return Product Entity
-     */
     public ProductEntity getOneOrFail(String id) {
         Optional<ProductEntity> person = productRepository.findById(id);
         if (person.isPresent()) {
@@ -44,12 +34,6 @@ public class ProductService {
         }
     }
 
-    /**
-     * Save an product
-     *
-     * @param input input with the product attributes
-     * @return an saved product entity.
-     */
     public ProductEntity saveProduct(SaveProductInput input) {
         return productRepository.save(productMapper.toEntity(input.getName(), input.getType(), input.getBrand()));
     }

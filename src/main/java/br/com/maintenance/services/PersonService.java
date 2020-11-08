@@ -20,24 +20,10 @@ public class PersonService {
     @Autowired
     private PersonMapper personMapper;
 
-    /**
-     * Return every saved person.
-     *
-     * @return product list
-     */
     public List<PersonEntity> getAll() {
         return personRepository.findAll();
     }
 
-    /**
-     * Save a person with the validations below.
-     *  - Already have a person with this name
-     *  - Already have a person with this number
-     *  - Already have a person with this email
-     *
-     * @param input Person atributes object
-     * @return Saved person.
-     */
     public PersonEntity validateAndSave(SavePersonInput input) {
         if (personRepository.getPersonByName(input.getName()).isPresent()) throw Exceptions.personNameAlreadyInUse();
         if (personRepository.getPersonByEmail(input.getEmail()).isPresent()) throw Exceptions.personEmailAlreadyInUse();
@@ -46,11 +32,6 @@ public class PersonService {
         return personRepository.save(personMapper.toEntity(input));
     }
 
-    /**
-     * Return the person by id, and throws exception if doesn't find.
-     *
-     * @return Person Entity
-     */
     public PersonEntity getOneOrFail(String id) {
         Optional<PersonEntity> person = personRepository.findById(id);
         if (person.isPresent()) {

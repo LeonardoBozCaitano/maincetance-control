@@ -29,21 +29,10 @@ public class OrderService {
         this.orderMapper = orderMapper;
     }
 
-    /**
-     * Return every saved product.
-     *
-     * @return product list
-     */
     public List<OrderEntity> getAll() {
         return orderRepository.findAll();
     }
 
-    /**
-     * save an order
-     *
-     * @param dto order data
-     * @return saved order
-     */
     public OrderEntity saveOrder(SaveOrderInput dto) {
         EmployeeEntity employeeEntity = employeeService.getOneOrFail(dto.getEmployeeId());
         PersonEntity personEntity = personService.getOneOrFail(dto.getClientId());
@@ -53,11 +42,6 @@ public class OrderService {
         return orderRepository.save(orderEntity);
     }
 
-    /**
-     * Return the order by id, and throws exception if doesn't find it.
-     *
-     * @return Order Entity
-     */
     public OrderEntity getOneOrFail(String id) {
         Optional<OrderEntity> order = orderRepository.findById(id);
         if (order.isPresent()) {
@@ -67,36 +51,18 @@ public class OrderService {
         }
     }
 
-    /**
-     * This method, saves when the employee started to work at the Order.
-     *
-     * @param id order Id.
-     * @return The order with new attributes.
-     */
     public OrderEntity startWorkAtOrder(String id) {
         OrderEntity orderEntity = getOneOrFail(id);
         orderEntity.setStatusInProgress();
         return orderRepository.save(orderEntity);
     }
 
-    /**
-     * This method, save when the employee stoped to work at the Order.
-     *
-     * @param id order Id.
-     * @return The order with new attributes.
-     */
     public OrderEntity stopWorkAtOrder(String id) {
         OrderEntity orderEntity = getOneOrFail(id);
         orderEntity.setStatusDone();
         return orderRepository.save(orderEntity);
     }
 
-    /**
-     * This method returs all the waiting or in progress order of a employee
-     *
-     * @param id employee id
-     * @return The active orders.
-     */
     public List<OrderEntity> getAllEmployeeOrders(String id) {
         EmployeeEntity employee = employeeService.getOneOrFail(id);
         return orderRepository.getAllEmployeeOrders(employee.getId());

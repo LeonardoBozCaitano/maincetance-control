@@ -7,12 +7,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class EmployeeMapper {
 
-    /**
-     * create a employee entity with the person
-     *
-     * @param personEntity Person entity
-     * @return Employee Entity
-     */
     public EmployeeEntity toEntity(PersonEntity personEntity) {
         return new EmployeeEntity(personEntity);
     }

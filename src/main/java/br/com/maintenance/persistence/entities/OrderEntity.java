@@ -20,15 +20,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class OrderEntity implements Serializable {
 
-    public OrderEntity(PersonEntity client, EmployeeEntity employee, ProductEntity product, String description) {
-        this.client = client;
-        this.employee = employee;
-        this.product = product;
-        this.description = description;
-        this.creationDate = LocalDate.now();
-        this.status = OrderStatus.WAITING;
-    }
-
     @Id
     @GeneratedValue(generator="system-uuid")
     @GenericGenerator(name="system-uuid", strategy = "uuid")
@@ -64,9 +55,15 @@ public class OrderEntity implements Serializable {
 
     private LocalDate endDate;
 
-    /**
-     * Set the status IN_PROGRESS and the datetime when it happens.
-     */
+    public OrderEntity(PersonEntity client, EmployeeEntity employee, ProductEntity product, String description) {
+        this.client = client;
+        this.employee = employee;
+        this.product = product;
+        this.description = description;
+        this.creationDate = LocalDate.now();
+        this.status = OrderStatus.WAITING;
+    }
+
     public void setStatusInProgress() {
         if (this.getStartDate() != null) {
             throw Exceptions.orderAlreadyStarted();
@@ -75,9 +72,6 @@ public class OrderEntity implements Serializable {
         this.setStatus(OrderStatus.IN_PROGRESS);
     }
 
-    /**
-     * Set the status Done and the datetime when it happens.
-     */
     public void setStatusDone() {
         if (this.getEndDate() != null) {
             throw Exceptions.orderAlreadyDone();

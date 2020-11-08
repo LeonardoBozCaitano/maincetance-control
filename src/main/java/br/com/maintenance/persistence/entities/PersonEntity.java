@@ -21,14 +21,6 @@ import java.util.UUID;
 @NoArgsConstructor
 public class PersonEntity implements Serializable {
 
-    public PersonEntity(String name, String adress, String phone, String email) {
-        this.setName(name);
-        this.setAdress(adress);
-        this.setPhone(phone);
-        this.setName(name);
-        this.setEmail(email);
-    }
-
     @Id
     @GeneratedValue(generator="system-uuid")
     @GenericGenerator(name="system-uuid", strategy = "uuid")
@@ -52,4 +44,11 @@ public class PersonEntity implements Serializable {
     @NotNull
     private String email;
 
+    public PersonEntity(String name, String adress, String phone, String email) {
+        this.setName(name);
+        this.setAdress(adress);
+        this.setPhone(phone);
+        this.setName(name);
+        this.setEmail(email);
+    }
 }

@@ -19,12 +19,6 @@ import java.util.UUID;
 @NoArgsConstructor
 public class ProductEntity implements Serializable {
 
-    public ProductEntity(String name, String type, String brand){
-        this.setName(name);
-        this.setType(type);
-        this.setBrand(brand);
-    }
-
     @Id
     @GeneratedValue(generator="system-uuid")
     @GenericGenerator(name="system-uuid", strategy = "uuid")
@@ -42,4 +36,10 @@ public class ProductEntity implements Serializable {
     @NotEmpty
     @NotNull
     private String brand;
+
+    public ProductEntity(String name, String type, String brand){
+        this.setName(name);
+        this.setType(type);
+        this.setBrand(brand);
+    }
 }
